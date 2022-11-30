@@ -5,7 +5,6 @@ import pyttsx3
 import speech_recognition as sr
 import datetime
 import os
-import autopy
 
 # เริ่มต้นใช้งาน engine ชื่อ sapi5
 # sapi5 เทคโนโลยีสำหรับ voice recognition และ synthesis โดย Microsoft
@@ -14,8 +13,8 @@ import autopy
 # ในกรณีนี้เราจะใช้เพื่อให้เสียงออกมา
 
 engine = pyttsx3.init('sapi5') 
-# ให้เสียงพูดว่า "สวัสดีครับ"
-speak("สวัสดีครับ")
+
+
 
 # รับลิสต์เสียงสำหรับ engine
 #  engine.getProperty คือ แสดงรายชื่อเสียงที่สามารถใช้งานได้
@@ -44,7 +43,7 @@ def commands():
     try: # ถ้ารับเสียงได้
         print("Recognizing...")
         # อินสแตนซ์ของ Recognizer โดยใช้ Google Speech Recognition AP
-        query = r.recognize_google(audio, language='th-TH') # ภาษาไทย 
+        query = r.recognize_google(audio, language='en-EN') # ภาษาไทย 
 
         print(f"User said: {query}\n")# แสดงข้อความที่เราพูด ในคอนโซล
 
@@ -71,9 +70,7 @@ def wishings():
         speak("Good Evening!")  
 
     #สุดท้ายนี้ขอให้ผู้ใช้ พูดว่า สวัสดี และ ชื่อของผู้ใช้
-
-    speak("สวัสดี")
-
+    speak("I am Jarvis Sir. Please tell me how may I help you")
 
 if __name__ == "__main__":
 
@@ -88,33 +85,8 @@ if __name__ == "__main__":
             # ใช้ฟังก์ชัน speak() เพื่อพูดเวลา
             speak(f"Sir, the time is {strTime}") 
 
-        elif 'comment' in query:
-            # typing sharp with autopy
-            autopy.key.tap('#')
-            query = "null"
-            speak("ได้เลยครับ พิมพ์คอมเม้นต์ของคุณ")
-
-        elif 'open firefox' in query:
+        elif 'open browser' in query:
             # ใช้ฟังก์ชัน speak() เพื่อพูดว่า กำลังเปิด Firefox
-            speak("Opening Firefox")
+            speak("Opening Browser")
             # ใช้ฟังก์ชัน webbrowser.open() เพื่อเปิด Firefox
             os.startfile("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe")
-
-        elif 'wikipedia' in query:
-            # ใช้ฟังก์ชัน speak() เพื่อพูดว่า กำลังค้นหาใน Wikipedia
-            speak("Searching Wikipedia...")
-            try:
-                # ใช้ฟังก์ชัน query.replace() เพื่อเปลี่ยนคำว่า wikipedia เป็นค่าว่าง
-                query = query.replace("wikipedia", "")
-                # ใช้ฟังก์ชัน results เพื่อค้นหาคำที่ผู้ใช้พูดใน Wikipedia
-                results = wikipedia.summary(query, sentences=2)
-                # ใช้ฟังก์ชัน speak() เพื่อพูดผลลัพธ์
-                speak("According to Wikipedia")
-                # ใช้ฟังก์ชัน speak() เพื่อพูดผลลัพธ์
-                print(results)
-                speak(results)
-            except:
-                # ใช้ฟังก์ชัน speak() เพื่อพูดว่า ไม่พบผลลัพธ์
-                speak("Sorry, I can't find it")
-                print("Sorry, I can't find it")
-
